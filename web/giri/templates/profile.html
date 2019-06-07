@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock title %}
+{% block header %}<!--Главнаяs-->{% endblock header %}
+{% load staticfiles %}
+
+{% block content %}
+
+<!--вывод информации о спортсмене и результатах соревнований-->
+
+<div class="my-3 my-md-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					{% csrf_token %}
+					<div class="card-body">
+							<div class="row">
+								<div class="col-auto">
+	                        		<span class="avatar avatar-xl" style="background-image: url({% static 'demo/faces/userpic.jpg' %}")></span>
+	                      		</div>
+	                      		<div class ="col">
+								<h3 class="mb-0">
+									{{sportsmenid.surname}} 
+									{{sportsmenid.name}} 
+									{{sportsmenid.patronymic}}
+									<small class="text-muted mt-1" style="font:9px;">
+									{% if sportsmenid.gender == True %}
+										муж.
+									{% else %}
+										жен.
+									{% endif %}
+								</small>
+								</h3>
+								<h4 class="text-muted mb-2">
+									{{sportsmenid.region}} - {{sportsmenid.dateofbirth}}
+								</h4>
+								</div>
+								<div class ="col text-right">
+								<span class="text-justify mt-1">Категория</span><p class="mt-0">{{sportsmenid.category}}</p>
+								</div>
+							</div>
+					</div>
+				</div>
+			</div>
+			<!--
+			<div class="col-lg-4">
+				<div class="card">
+					{% csrf_token %}
+					<div class="card-header">
+                    	<h3 class="card-title">График (если не получится, удалю)</h3>
+                  	</div>
+                  	<div class="card-body">
+                    	<div id="chart-temperature" style="height: 16rem"></div>
+                  	</div>
+				</div>
+			</div>
+			-->
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Результаты</h3>
+					</div>
+						<div class="table-responsive">
+						<!-- ТАБЛИЦА -->
+						<table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+							<thead>
+							<tr>
+								<th>Дата</th>
+								<th>Место проведения</th>
+								<th>Статус</th>
+								<th>Результат</th>
+							</tr>
+							</thead>                   
+							<tbody>
+								{% for result in results %}
+								{% if result.sportsmenid.id == sportsmenid.id %}
+							<tr>
+								<td>{{ result.competitionid.date }}</td>
+								<td>{{ result.competitionid.id }} ({{ result.competitionid.place }})</td>
+								<td>{{ result.competitionid.status }}</td>
+								<td>{{ result.result }}</td>          
+							</tr>
+								{% endif %}
+								{% endfor %}
+							</tbody>
+						</table>
+
+						<!-- ТАБЛИЦА -->
+						</div>
+				</div>
+				<!--
+				<div class="alert alert-icon alert-warning" role="warning">
+					<i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> У спортсмена пока нет результатов соревнований.
+				</div>
+				-->
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

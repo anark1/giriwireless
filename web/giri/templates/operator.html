@@ -1,0 +1,503 @@
+{% extends "base.html" %}
+{% block title %}Operator{% endblock title %}
+{% block header %}<!--Главнаяs-->{% endblock header %}
+{% load staticfiles %}
+
+
+
+{% block content %}
+
+<section id="tabs" class="project-tab">
+	<div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg order-lg-first">
+					<nav>
+						<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+							<a class="nav-item nav-link active" id="nav-sportsman-tab" data-toggle="tab" href="#nav-sportsman" role="tab" aria-controls="nav-sportsman" aria-selected="true">Спортсмены</a>
+							<a class="nav-item nav-link" id="nav-competition-tab" data-toggle="tab" href="#nav-competition" role="tab" aria-controls="nav-competition" aria-selected="false">Соревнования</a>
+							<a class="nav-item nav-link" id="nav-results-tab" data-toggle="tab" href="#nav-results" role="tab" aria-controls="nav-results" aria-selected="false">Результаты</a>
+							<a class="nav-item nav-link" id="nav-judges-tab" data-toggle="tab" href="#nav-judges" role="tab" aria-controls="nav-judges" aria-selected="false">Судьи</a>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- СПОРТСМЕНЫ -->
+	<div class="tab-content" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="nav-sportsman" role="tabpanel" aria-labelledby="nav-sportsman-tab">
+			<div class="my-3 my-md-5">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Добавить спортсмена</h3>
+									<div class="card-options">
+										<form method="POST">
+										{% csrf_token %}
+										<button type="submit" class="btn btn-primary ml-auto" name="submit1">Добавить</button>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="text-wrap">
+										
+											<div class="form-group">
+												<div class = "row">
+													<div class ="col">
+														<label class="form-label">Фамилия</label>
+														<input type="text" class="form-control" name="surname" placeholder="Иванов">
+													</div>
+													<div class ="col">
+														<label class="form-label">Имя</label>
+														<input type="text" class="form-control" name="name" placeholder="Иван">
+													</div>
+													<div class ="col">
+														<label class="form-label">Отчество</label>
+														<input type="text" class="form-control" name="patronymic" placeholder="Иванович">
+													</div>
+												</div>
+												<div class = "row">
+													<div class ="col">
+														<label class="form-label">Регион</label>
+														<input type="text" class="form-control" name="region">
+													</div>
+													<!--<div class ="col">
+														<label class="form-label">Категория</label>
+														<input type="text" class="form-control" name="category">
+													</div>-->
+													<div class ="col">
+														<label class="form-label">День рождения</label>
+														<input type="date" class="form-control" name="birthday">
+													</div>
+													<div class ="col">
+														<label class="form-label">Пол</label>
+														<select class="custom-select" name="gender"> 
+															<option value="True" selected>Мужской</option>
+															<option value="False">Женщина</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</form> 
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Список спортсменов</h3>
+									<div class="card-options">
+										<a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+									</div>
+								</div>
+								<div class="table-responsive">
+										<!-- ТАБЛИЦА -->
+										{% if sportsmens.count > 0 %}
+										<table class="table table-hover table-outline table-vcenter text-nowrap card-table datatable">
+											<thead> 
+											<tr>
+												<th class="w-1">id</th>
+												<th>Фамилия</th>
+												<th>Имя</th>
+												<th>Отчество</th>
+												<th>Регион</th>
+												<!--<th>Категория</th>-->
+												<th>День рождения</th>
+												<th>Пол</th>
+												<th></th>
+											</tr>
+											</thead>
+											<tbody>
+											{% for sportsmen in sportsmens %}
+											<tr>
+												<form method="POST">
+												{% csrf_token %}
+												
+												<input type="hidden" class="form" name="sportsmen_id" value={{ sportsmen.id }}>
+												<td><span class="text-muted">{{ sportsmen.id }}</span></td>
+												<td><input type="text" class="form-control" size=7 name="sportsmen_surname_field" value="{{ sportsmen.surname }}"></td>
+												<td><input type="text" class="form-control" size=7 name="sportsmen_name_field" value="{{ sportsmen.name }}"></td>
+												<td><input type="text" class="form-control" size=7 name="sportsmen_patronymic_field" value="{{ sportsmen.patronymic }}"></td>
+												<td><input type="text" class="form-control" size=10 name="sportsmen_region_field" value="{{ sportsmen.region }}"></td>
+												<!--<td><input type="text" class="form-control" size=7 name="sportsmen_category_field" value="{{ sportsmen.category }}"></td>-->
+												<td><input type="date" class="form-control" size=7 name="sportsmen_dateofbirth_field" value="{{ sportsmen.dateofbirth|date:"Y-m-d" }}"></td>
+												<td>
+													<!--<span name="sportsmen_gender_field" class="text-muted">{{ sportsmen.gender }}</span>-->
+													<select class="custom-select" size=1 name="sportsmen_gender_field">
+														<option {% if sportsmen.gender == True %} selected {% endif %} value="True">Мужской</option>
+														<option {% if sportsmen.gender == False %} selected {% endif %} value="False">Женский</option>
+												   	</select>
+											   </td>
+
+												<td>
+													<button type="submit" class="btn btn-success ml-auto" name="save_sportsmen"><span class= "fe fe-save"></span></button>
+													<button type="submit" class="btn btn-danger ml-auto" name="delete_sportsmen"><span class= "fe fe-trash"></span></button>
+												</td>
+												</form>
+											</tr>
+											</tbody>
+											{% endfor %}
+										</table>
+										{% endif %}
+										<!-- ТАБЛИЦА -->
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<!-- СОРЕВНОВАНИЯ -->
+		<div class="tab-pane fade" id="nav-competition" role="tabpanel" aria-labelledby="nav-competition-tab">
+			<div class="my-3 my-md-5">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Добавить соревнование</h3>
+									<div class="card-options">
+										<form method="POST">
+										{% csrf_token %}
+										<button type="submit" class="btn btn-primary ml-auto" name="submit2">Добавить</button>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="text-wrap">
+
+											<div class="form-group">
+											<div class="row">
+												<div class ="col">
+													<label class="form-label">Дата проведения</label>
+													<input type="date" class="form-control" name="date">
+												</div>
+												<div class ="col">
+													<label class="form-label">Место</label>
+													<input type="text" class="form-control" name="place" placeholder="Томск">
+												</div>
+												<div class ="col">
+													<label class="form-label">Статус соревнований</label>
+													<input type="text" class="form-control" name="status" placeholder="Межвузовские">
+												</div>
+											</div>
+											</div>
+
+										</form> 
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Список соревнований</h3>
+									<div class="card-options">
+										<a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+									</div>
+								</div>
+								<div class="table-responsive">
+										<!-- ТАБЛИЦА -->
+										{% if competitions.count > 0 %}
+										<table class="table table-hover table-outline table-vcenter text-nowrap card-table"> 
+											<tr>
+												<th>ID</th>
+												<th>Дата</th>
+												<th>Место</th>
+												<th>Статус</th>
+												<th></th>
+											</tr>
+											{% for competition in competitions %}
+											<tr>
+												<form method="POST">
+												{% csrf_token %}
+												<input type="hidden" name="competition_id" value={{ competition.id }}>
+												<td><span class="text-muted">{{ competition.id }}</span></td>
+												<td>
+													<input type="date" class="form-control" name="competition_date_field" value="{{ competition.date|date:"Y-m-d" }}">
+												</td>
+												<td><input type="text" class="form-control" name="competition_place_field" value="{{ competition.place }}"></td>
+												<td><input type="text" class="form-control" name="competition_status_field" value="{{ competition.status }}"></td>
+												<td>
+														<button type="submit" class="btn btn-success ml-auto" name="save_competition"><span class= "fe fe-save"></span></button>
+
+														<button type="submit" class="btn btn-danger ml-auto" name="delete_competition"><span class= "fe fe-trash"></span></button>
+
+												</td>
+												</form>
+												</td>            
+											</tr>
+											{% endfor %}
+										</table>
+										{% endif %}
+										<!-- ТАБЛИЦА -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<!-- РЕЗУЛЬТАТ -->
+		<div class="tab-pane fade" id="nav-results" role="tabpanel" aria-labelledby="nav-results-tab">
+			<div class="my-3 my-md-5">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Добавить результат</h3>
+									<div class="card-options">
+										<form method="POST">
+										{% csrf_token %}
+										<button type="submit" class="btn btn-primary ml-auto" name="submit4">Добавить</button>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="text-wrap">
+
+											<div class="form-group">
+											<div class="row">
+												<div class ="col">
+													<label class="form-label">Фамилия тренера</label>
+													<input type="text" class="form-control" name="mastersurname">
+												</div>
+												<div class ="col">
+													<label class="form-label">Имя тренера</label>
+													<input type="text" class="form-control" name="mastername">
+												</div>
+												<div class ="col">
+													<label class="form-label">Отчество тренера</label>
+													<input type="text" class="form-control" name="masterpatronymic">
+												</div>
+												<!--<div class ="col">
+													<label class="form-label">Результат</label>
+													<input type="number" class="form-control" name="result">
+												</div>-->
+												<div class ="col">
+													<label class="form-label">Дисциплина</label>
+													<input type="text" class="form-control" name="discipline">
+												</div>
+												<div class ="col">
+													<label class="form-label">Помост</label>
+													<input type="number" class="form-control" name="platform">
+												</div>
+											</div>
+											<div class="row">
+												<div class ="col">
+													<label class="form-label">Вес спортсмена</label>
+													<input type="number" class="form-control" name="sportsmenweight">
+												</div>
+												<div class ="col">
+													<label class="form-label">Вес снаряда</label>
+													<input type="number" class="form-control" name="giriweight">
+												</div>
+												<div class ="col">
+													<label class="form-label">ID соревнования</label>
+													<select class="custom-select" name="competitionid"> {% if competitions.count > 0 %}
+														{% for competition in competitions %}
+															<option value="{{ competition.id }}">{{ competition.id }} ({{ competition.place }})</option>
+														{% endfor %}
+													{% endif %}
+													</select>
+													<!--<input type="number" class="form-control" name="competitionid">-->
+												</div>
+												<div class ="col">
+													<label class="form-label">ID спортсмена</label>
+													<select class="custom-select" name="sportsmenid"> 
+													{% if sportsmens.count > 0 %}
+														{% for sportsmen in sportsmens %}
+															<option value="{{ sportsmen.id }}">{{ sportsmen.id }} ({{ sportsmen.surname }} {{ sportsmen.name }} {{ sportsmen.patronymic }})</option>
+														{% endfor %}
+													{% endif %}
+													</select>
+													<!--<input type="number" class="form-control" name="sportsmenid">-->
+												</div>
+												<div class ="col">
+													<label class="form-label">ID судьи</label>
+													<select class="custom-select" name="judgeid"> 
+													{% if judges.count > 0 %}
+														{% for judge in judges %}
+															<option value="{{ judge.id }}">{{ judge.id }} ({{ judge.judgesurname }} {{ judge.judgename }} {{ judge.judgepatronymic }})</option>
+														{% endfor %}
+													{% endif %}
+													</select>												
+													<!--<input type="number" class="form-control" name="judgeid">-->
+												</div>
+											</div>
+											</div>
+										</form> 
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Список результатов</h3>
+									<div class="card-options">
+										<a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+									</div>
+								</div>
+								<div class="table-responsive">
+										<!-- ТАБЛИЦА -->
+										{% if results.count > 0 %}
+										<table class="table table-hover table-outline table-vcenter  card-table"> 
+											<tr>
+												<th>ID</th>
+												<th>ID Спортсмена</th>
+												<th>ID Соревнов.</th>
+												<th>ID Судьи</th>
+												<th>Помост</th>
+												<th>Результат</th>
+												<th>Дисциплина</th>
+												<th>Фамилия тренера</th>
+												<th>Имя тренера</th>
+												<th>Отчество тренера</th>
+												<th>Вес спортсмена</th>
+												<th>Вес гирь</th>
+												<th></th>
+											</tr>
+
+											{% for result in results %}
+											<tr>
+												<form method="POST">
+												{% csrf_token %}
+												<input type="hidden" name="result_id" value={{ result.id }}>
+												<td>
+													<span class="text-muted">{{ result.id }}</span>
+												</td>
+												<td>
+													{{ result.sportsmenid.id }} ({{ result.sportsmenid.surname }} {{ result.sportsmenid.name }} {{ result.sportsmenid.patronymic }})
+												</td>
+												<td>
+													{{ result.competitionid.id }} ({{ result.competitionid.place }})
+												</td>
+												<td>
+												<select class="custom-select" size=1 name="result_judgeid_field">
+													{% if judges.count > 0 %}
+														{% for judge in judges %}
+												   			<option {% if result.judgeid == judge %} selected {% endif %} value="{{ judge.id }}">{{ judge.id }} ({{ judge.judgesurname }} {{ judge.judgename }} {{ judge.judgepatronymic }})</option>
+												    	{% endfor %}
+											    	{% endif %}
+											   	</select>
+												</td>
+												<td><input type="text" class="form-control" name="result_platform_field" value="{{ result.platform }}"></td>
+												<td><input type="text" class="form-control" name="result_result_field" value="{{ result.result }}" disabled></td>
+												<td><input type="text" class="form-control" name="result_discipline_field" value="{{ result.discipline }}"></td>
+
+												<td><input type="text" class="form-control" size=7 name="result_mastername_field" value="{{ result.mastername }}"></td>
+												<td><input type="text" class="form-control" size=7 name="result_mastersurname_field" value="{{ result.mastersurname }}"></td>
+												<td><input type="text" class="form-control" size=7 name="result_masterpatronymic_field" value="{{ result.masterpatronymic }}"></td>
+												<td><input type="text" class="form-control" size=3 name="result_sportsmenweight_field" value="{{ result.sportsmenweight }}"></td>
+												<td><input type="text" class="form-control" size=3 name="result_giriweight_field" value="{{ result.giriweight }}"></td>
+												<td>
+														<button type="submit" class="btn btn-success ml-auto" name="save_result"><span class= "fe fe-save"></span></button>
+
+														<button type="submit" class="btn btn-danger ml-auto" name="delete_result"><span class= "fe fe-trash"></span></button>
+												</td>    
+												</form>        
+											</tr>
+											{% endfor %}
+										</table>
+										{% endif %}
+										<!-- ТАБЛИЦА -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<!-- СУДЬИ -->
+		<div class="tab-pane fade" id="nav-judges" role="tabpanel" aria-labelledby="nav-judges-tab">
+			<div class="my-3 my-md-5">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Добавить судью</h3>
+									<div class="card-options">
+										<form method="POST">
+										{% csrf_token %}
+										<button type="submit" class="btn btn-primary ml-auto" name="submit3">Добавить</button>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="text-wrap">
+											<div class="form-group">
+											<div class="row">
+												<div class ="col">
+													<label class="form-label">Фамилия</label>
+													<input type="text" class="form-control" name="judgesurname">
+												</div>
+												<div class ="col">
+													<label class="form-label">Имя</label>
+													<input type="text" class="form-control" name="judgename">
+												</div>
+												<div class ="col">
+													<label class="form-label">Отчество</label>
+													<input type="text" class="form-control" name="judgepatronymic">
+												</div>
+											</div>
+											</div>
+										</form> 
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Список судей</h3>
+								</div>
+								<div class="table-responsive">
+										<!-- ТАБЛИЦА -->
+										{% if judges.count > 0 %}
+										<table class="table table-hover table-outline table-vcenter text-nowrap card-table"> 
+											<tr>
+												<th>ID</th>
+												<th>Фамилия</th>
+												<th>Имя</th>
+												<th>Отчество</th>
+												<th>Действие</th>
+											</tr>
+
+											{% for judge in judges %}
+											<tr>
+												<form method="POST">
+												{% csrf_token %}
+												<input type="hidden" name="judge_id" value={{ judge.id }}>
+												<td><span class="text-muted">{{ judge.id }}</snap></td>
+												<td><input type="text" class="form-control" name="judge_judgesurname_field" value="{{ judge.judgesurname }}"></td>
+												<td><input type="text" class="form-control" name="judge_judgename_field" value="{{ judge.judgename }}"></td>
+												<td><input type="text" class="form-control" name="judge_judgepatronymic_field" value="{{ judge.judgepatronymic }}"></td>
+												<td>
+														<button type="submit" class="btn btn-success ml-auto" name="save_judge"><span class= "fe fe-save"></span></button>
+														<button type="submit" class="btn btn-danger ml-auto" name="delete_judge"><span class= "fe fe-trash"></span></button>
+										
+												</td>
+												</form>		            
+											</tr>
+											{% endfor %}
+										</table>
+										{% endif %}
+										<!-- ТАБЛИЦА -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</section>
+{% endblock content %}

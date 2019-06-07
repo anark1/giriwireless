@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete 4 resources" deleteContents="false" description="Delete 4 resources" element1="/1986BE1T/src/blink_app.cpp" element2="/1986BE1T/src/blink_app.hpp" element3="/1986BE1T/src/config.hpp" element4="/1986BE1T/src/main.cpp" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="4" stamp="1540394338762"/>&#x0A;<refactoring comment="Delete 3 resources" deleteContents="false" description="Delete 3 resources" element1="/1986BE92/obj" element2="/1986BE92/1986BE1T_blink.elf" element3="/1986BE92/1986BE1T_blink.map" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="3" stamp="1540407486560"/>
+</session>

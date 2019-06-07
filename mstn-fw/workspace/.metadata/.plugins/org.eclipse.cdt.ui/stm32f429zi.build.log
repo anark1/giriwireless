@@ -1,0 +1,8 @@
+13:17:10 **** Incremental Build of configuration Default for project stm32f429zi ****
+make all 
+arm-none-eabi-size stm32f429zi_blink.elf
+   text	   data	    bss	    dec	    hex	filename
+  84113	    404	    980	  85497	  14df9	stm32f429zi_blink.elf
+
+13:17:14 Build Finished. 0 errors, 0 warnings. (took 4s.86ms)
+

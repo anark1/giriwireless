@@ -1,0 +1,25 @@
+BEGIN;
+--
+-- Create model Competition
+--
+CREATE TABLE "giri_competition" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "date" date NOT NULL, "place" varchar(30) NOT NULL, "status" varchar(30) NOT NULL);
+--
+-- Create model Judge
+--
+CREATE TABLE "giri_judge" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "judgename" varchar(30) NOT NULL, "judgesurname" varchar(30) NOT NULL, "judgepatronymic" varchar(30) NOT NULL);
+--
+-- Create model Sportsmen
+--
+CREATE TABLE "giri_sportsmen" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(30) NOT NULL, "surname" varchar(30) NOT NULL, "patronymic" varchar(30) NOT NULL, "region" varchar(30) NOT NULL, "dateofbirth" date NOT NULL, "category" varchar(30) NOT NULL, "gender" bool NOT NULL);
+--
+-- Create model Users
+--
+CREATE TABLE "giri_users" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "username" varchar(30) NOT NULL, "password" varchar(30) NOT NULL, "permission" varchar(1) NOT NULL, "judgeid" integer NOT NULL);
+--
+-- Create model Result
+--
+CREATE TABLE "giri_result" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "result" integer NOT NULL, "mastername" varchar(30) NOT NULL, "mastersurname" varchar(30) NOT NULL, "masterpatronymic" varchar(30) NOT NULL, "discipline" varchar(30) NOT NULL, "platform" integer NOT NULL, "sportsmenweright" real NOT NULL, "giriweight" integer NOT NULL, "competitionid_id" integer NOT NULL REFERENCES "giri_competition" ("id") DEFERRABLE INITIALLY DEFERRED, "judgeid_id" integer NOT NULL REFERENCES "giri_judge" ("id") DEFERRABLE INITIALLY DEFERRED, "sportsmenid_id" integer NOT NULL REFERENCES "giri_sportsmen" ("id") DEFERRABLE INITIALLY DEFERRED);
+CREATE INDEX "giri_result_competitionid_id_88abf08f" ON "giri_result" ("competitionid_id");
+CREATE INDEX "giri_result_judgeid_id_e8abb348" ON "giri_result" ("judgeid_id");
+CREATE INDEX "giri_result_sportsmenid_id_4a0b0821" ON "giri_result" ("sportsmenid_id");
+COMMIT;

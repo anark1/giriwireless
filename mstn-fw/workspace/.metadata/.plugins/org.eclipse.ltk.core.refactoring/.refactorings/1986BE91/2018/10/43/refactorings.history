@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;1986BE91/1986BE92.launch&apos; to &apos;1986BE91.launch&apos;" description="Rename resource &apos;1986BE92.launch&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="1986BE92.launch" name="1986BE91.launch" stamp="1540408556536" updateReferences="true"/>
+</session>

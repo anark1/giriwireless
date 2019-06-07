@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;1986BE1T/stm32f429zi.launch&apos; to &apos;1986BE1T.launch&apos;" description="Rename resource &apos;stm32f429zi.launch&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="stm32f429zi.launch" name="1986BE1T.launch" stamp="1540394095810" updateReferences="true"/>
+</session>

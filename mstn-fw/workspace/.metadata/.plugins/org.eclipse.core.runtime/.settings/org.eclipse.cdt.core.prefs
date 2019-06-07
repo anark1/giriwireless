@@ -1,0 +1,8 @@
+ToolChainManager/order/n=0
+eclipse.preferences.version=1
+environment/workspace/PATH/delimiter=;
+environment/workspace/PATH/operation=replace
+environment/workspace/PATH/value=${eclipse_home}toolchain\\gcc\\bin
+environment/workspace/append=true
+environment/workspace/appendContributed=true
+macros/workspace=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<macros/>\r\n

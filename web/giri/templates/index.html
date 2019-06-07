@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock title %}
+{% block header %}<!--Главнаяs-->{% endblock header %}
+{% load staticfiles %}
+ 
+{% block content %}
+
+
+<div class="my-3 my-md-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Поиск по спортсмену</h3>
+					</div>
+					<div class="card-body">
+						<div class="text-wrap">
+							<p class="text-justify">Данная форма позволяет произвести поиск по базе данных спортсменов, 
+							для того, чтобы узнать информацию о спортсмене, результатах и выступлений.
+							</p>
+							
+						<form id="submitForm" method="POST" action="/">
+							{% csrf_token %}
+							<div class="form-group">
+								<label class="form-label">Фамилия</label>
+								<input type="text" class="form-control" name="surname" placeholder="Иванов">
+								<label class="form-label">Имя</label>
+								<input type="text" class="form-control" name="name" placeholder="Иван">
+								<label class="form-label">Отчество</label>
+								<input type="text" class="form-control" name="patronymic" placeholder="Иванович">
+							</div>
+							<div class="card-footer text-right">
+								<div class="d-flex">
+									<!--<a href="javascript:void(0)" class="btn btn-link">Сбросить</a>-->
+									<input type="button" class="btn btn-link" onclick="clearForms()" value="Сбросить">
+									<button type="submit" class="btn btn-primary ml-auto" name="find">Показать</button>
+								</div>
+							</div>
+						</form>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-8">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">База данных спортсменов и результатов</h3>
+				</div>
+				<div class="table-responsive">
+						<form>
+						{% if sportsmens.count > 0 %}
+						<table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+							<thead>
+								<tr>
+									<th>Имя</th>
+									<!-- <th>Регион</th> -->
+									<th>День рождения</th>
+									<!--<th>Категория</th>-->
+								</tr>
+							</thead>
+							{% for sportsmen in sportsmens %}
+							<form method="POST">                     
+							<tbody>
+								
+									<tr>
+									<td>
+										<div>
+											<a href="profile/{{sportsmen.id}}">
+											{{ sportsmen.surname }}
+											{{ sportsmen.name }}
+											{{ sportsmen.patronymic }}
+											</a> 
+										</div>
+										<div class="small text-muted">
+											{{ sportsmen.region }}
+										</div>
+									</td>
+									<td>{{ sportsmen.dateofbirth }}</td>
+									<!--<td>{{ sportsmen.category }}</td>-->
+								</tr>
+							</tbody>
+							</form>
+							{% endfor %}
+						</table>
+						{% endif %}
+						</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
