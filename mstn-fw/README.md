@@ -1,5 +1,5 @@
 # mstn-m100-macs
 
-Ознакомительная версия ОСВР МАКС для плат mstn-m100.
-Все права на ОСВР МАКС принадлежат компании [astrosoft](https://www.astrosoft.ru/products/development/rtos-macs/).
+Прошивка с ОСВР МАКС на плате mstn-m100.
+[ОСВР МАКС](https://github.com/AstroSoft-MIR/macs-rtos).
 
